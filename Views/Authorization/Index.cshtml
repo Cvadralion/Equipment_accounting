@@ -1,0 +1,27 @@
+﻿@{
+ ViewData["Title"] = "Авторизация";
+}
+<style>
+ header {
+ display: none;
+ }
+
+ body {
+  justify-content: center;
+ }
+ footer {
+  display: none;
+ }
+    </style>
+
+<div class="login-container">
+ <img src="~/Logo.png" alt="Логотип">
+ <h2>EquAcc</h2>
+ <form action="/login" method="post">
+  <label for="username">Имя пользователя</label>
+  <input type="text" id="username" name="username" required>
+  <label for="password">Пароль</label>
+  <input type="password" id="password" name="password" required>
+  <input type="submit" value="Войти">
+ </form>
+</div>

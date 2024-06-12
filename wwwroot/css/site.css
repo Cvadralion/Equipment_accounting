@@ -1,0 +1,299 @@
+/* Общие стили для страницы */
+* {
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: antiquewhite; /* Цвет фона для всей страницы */
+    font-family: Arial, sans-serif; /* Настраиваем шрифт для всего документа */
+    display: flex;                  
+    flex-direction: column;         
+    align-items: center;            
+}
+
+header {
+    margin-top: 20px;
+    background-color: darkgreen; /* Зелёный фон */
+    width: 97%; /* Ширина на всю ширину экрана */
+    border-radius: 10px; /* Закругление углов контейнера */
+    padding: 20px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 1); /* Тень для контейнеров */
+}
+
+footer {
+    background-color: darkgreen; /* Зелёный фон */
+    width: 97%; /* Ширина на всю ширину экрана */
+    border-radius: 10px; /* Закругление углов контейнера */
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 1); /* Тень для контейнеров */
+    height: 150px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto; /* Центрируем контейнер на экране */
+    padding: 0 20px; /* Отступы справа и слева в контейнере */
+}
+
+.site-title {
+    color: white; /* Белый цвет текста */
+    font-size: 16px; /* Размер шрифта */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end; /* Выровнять элементы списка по правой стороне */
+}
+
+.nav-links a {
+    color: white; /* Белый цвет текста */
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    font-size: 20px; /* Увеличенный размер шрифта */
+    margin-left: 30px; /* Отступы между элементами списка */
+}
+
+.nav-links a:hover {
+    color: gray; /* Серый цвет текста при наведении */
+}
+
+main {
+    width: 95%;
+}
+
+/* Стили для страницы "Обзор оборудования" */
+
+.overview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.centered-title {
+    text-align: center;
+    font-size: 28px;
+    color: black;
+    width: 100%;
+}
+
+.content-form {
+    margin: 20px 0;
+    width: 100%;
+    background-color: #fff; /* Белый фон для контейнеров */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 10px; /* Закругление углов контейнера */
+    justify-content: space-between; /* Выравниваем контент по краям горизонтально */
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); /* Тень для контейнеров */
+}
+
+.room-list {
+    width: 30%;
+    background-color: darkgreen; /* Белый фон для контейнеров */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 10px; /* Закругление углов контейнера */
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 1); /* Тень для контейнеров */
+}
+
+.equipment-list {
+    width: 70%;
+    background-color: white; /* Белый фон для контейнеров */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 10px; /* Закругление углов контейнера */
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); /* Тень для контейнеров */
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.room-list h2 {
+    color: white;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ccc; /* Линия под заголовком */
+    padding-bottom: 10px; /* Отступ под заголовком */
+    text-align: center; /* Выравниваем текст по центру */
+}
+
+.equipment-list h2 {
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ccc; /* Линия под заголовком */
+    padding-bottom: 10px; /* Отступ под заголовком */
+    text-align: center; /* Выравниваем текст по центру */
+}
+
+.room-list ul {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0;
+}
+
+.equipment-list ul {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0;
+}
+
+.room-list li {
+    background-color: #fff; /* Белый фон для элементов списка */
+    margin-bottom: 10px; /* Отступ между элементами списка */
+    padding: 10px; /* Внутренние отступы для элементов списка */
+    border-radius: 5px; /* Скругление углов */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Тень для элементов списка */
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    background-color: #fff; /* Белый фон для контейнеров */
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+}
+
+.item {
+    margin-bottom: 20px;
+}
+
+    .item h2 {
+        margin: 0 0 10px 0;
+    }
+
+    .item p {
+        margin: 0;
+    }
+
+.image {
+    flex: 0 0 auto;
+    width: 34%;
+}
+
+    .image img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+.room-list li:hover {
+    transform: scale(1.1);
+}
+
+.equipment-container {
+    width: 100%;
+    background-color: #fff; /* Белый фон для элементов списка */
+    margin-bottom: 10px; /* Отступ между элементами списка */
+    padding: 10px; /* Внутренние отступы для элементов списка */
+    border-radius: 5px; /* Скругление углов */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень для элементов списка */
+}
+
+/* Стили для вкладки "Управление" */
+
+
+
+/* Стили для вкладки "Поиск" */
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.search {
+    margin: 20px 0;
+    width: 100%;
+    background-color: #fff; /* Белый фон для контейнеров */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 10px; /* Закругление углов контейнера */
+    justify-content: space-between; /* Выравниваем контент по краям горизонтально */
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); /* Тень для контейнеров */
+}
+.search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 90%;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); /* Тень для контейнеров */
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    width: 10%;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); /* Тень для контейнеров */
+}
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Стили для формы авторизации */
+
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 250px;
+}
+
+    .login-container h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: center;
+        color: darkgreen;
+    }
+
+    .login-container img {
+        max-width: 80px;
+        display: block; /* Сделать изображение блочным элементом */
+        margin: 0 auto 0px; /* Выровнять изображение по центру и добавить нижний отступ */
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .login-container input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #28a745;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .login-container input[type="submit"]:hover {
+            background-color: #218838;
+        }

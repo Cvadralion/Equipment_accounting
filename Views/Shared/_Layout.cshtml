@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EquAcc</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+ <header>
+  <div class="container">
+   <div class="site-title">
+    <h1>EquAcc</h1>
+   </div>
+   <nav>
+    <ul class="nav-links">
+     <li><a class="dropdown-item" asp-area="" asp-controller="Review" asp-action="Index">Обзор</a></li>
+     <li><a class="dropdown-item" asp-area="" asp-controller="Management" asp-action="Index">Управление</a></li>
+     <li><a class="dropdown-item" asp-area="" asp-controller="Search" asp-action="Index">Поиск</a></li>
+     <li><a>Пользователь</a></li>
+    </ul>
+   </nav>
+  </div>
+ </header>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    <footer class="border-top footer text-muted">
+        <div>
+
+        </div>
+    </footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

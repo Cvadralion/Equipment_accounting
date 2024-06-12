@@ -1,0 +1,78 @@
+﻿@using Equipment_accounting.Models
+@model List<Audience>
+@{
+    ViewData["Title"] = "Обзор оборудования";
+}
+
+ <div class="overview">
+  <h1 class="centered-title">Обзор оборудования</h1>
+  <div class="content-form">
+  <div class="room-list">
+   <h2>Номера аудиторий</h2>
+   <ul>
+    @foreach (var audience in Model)
+    {
+     <li><button class="dropdown-item" data-id="@audience.Id">Аудитория @audience.Number</button></li>
+    }
+   </ul>
+  </div>
+  <div class="equipment-list">
+   <h2>Оборудование</h2>
+   <ul id="equipmentList">
+    <li>Выберите аудиторию</li>
+   </ul>
+  </div>
+  </div>
+ </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script>
+ $(document).ready(function () {
+  $('.dropdown-item').click(function () {
+   let auditoryId = $(this).data('id');
+   $.get('/Review/GetEquipmentByAuditory', { auditoryId: auditoryId }, function (data) {
+    let fieldsHtml = '';
+    let equipments = data.$values;
+    if (equipments.length > 0) {
+     for (let equipment of equipments) {
+      fieldsHtml += `<div class="equipment-container">
+         <div class="list">
+             <div class="column">
+                 <div class="item">
+                     <p><b>Название:</b></p>
+                      <p>${equipment.name}</p>
+                 </div>
+                 <div class="item">
+                       <p><b>Категория:</p></b>
+                      <p>${equipment?.category?.name}</p>
+                 </div>
+                 <div class="item">
+                       <p><b>Документ:</p></b>
+                     <p>Document.pdg</p>
+                 </div>
+             </div>
+             <div class="column">
+                 <div class="item">
+                       <p><b>Дата поступления:</p></b>
+                      <p> ${equipment.dateaddedormoved}</p>
+                 </div>
+                 <div class="item">
+                       <p><b>Дата добаления/перемещения</p></b>
+                      <p>${equipment.dateaddedormoved}</p>
+                 </div>
+             </div>
+          <div class="image">
+               <img src="Equipment_images/5-1080.58258063.jpg">
+          </div>
+         </div>
+     </div>`;
+     }
+    }
+    else { 
+     fieldsHtml += `<li><a>Оборудование отсутствует</a></li>`;
+    }
+    $('#equipmentList').html(fieldsHtml);
+   });
+  });
+ });
+ </script>

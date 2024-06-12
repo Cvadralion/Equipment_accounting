@@ -1,0 +1,24 @@
+﻿@{
+ ViewData["Title"] = "Управление оборудованием";
+}
+
+<div class="overview">
+ <h1 class="centered-title">Обзор оборудования</h1>
+ <div class="content-form">
+  <div class="room-list">
+   <h2>Номера аудиторий</h2>
+   <ul>
+    @foreach (var audience in Model)
+    {
+     <li><button class="dropdown-item" data-id="@audience.Id">Аудитория @audience.Number</button></li>
+    }
+   </ul>
+  </div>
+  <div class="equipment-list">
+   <h2>Оборудование</h2>
+   <ul id="equipmentList">
+    <li>Выберите аудиторию</li>
+   </ul>
+  </div>
+ </div>
+</div>
