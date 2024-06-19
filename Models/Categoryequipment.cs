@@ -2,10 +2,10 @@
 
 namespace Equipment_accounting.Models
 {
- public partial class Categoryequipment
- {
-  [Key]
-  public int Id { get; set; }
-  public string Name { get; set; } = null!;
- }
+    public partial class Categoryequipment
+    {
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+    }
 }

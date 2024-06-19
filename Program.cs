@@ -11,26 +11,26 @@ var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<EquipmentBDContext>(options =>
 {
- options.UseNpgsql(connection);
+    options.UseNpgsql(connection);
 });
 
 builder.Services.AddControllersWithViews()
 .AddJsonOptions(options =>
 {
- options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
- options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
 });
 
 // Configure Identity Servieces
 builder.Services.AddIdentity<User, IdentityRole>(
     options =>
     {
-     // Configure password policy.
-     options.Password.RequiredLength = 4;
-     options.Password.RequireDigit = false;
-     options.Password.RequireLowercase = false;
-     options.Password.RequireUppercase = false;
-     options.Password.RequireNonAlphanumeric = false;
+        // Configure password policy.
+        options.Password.RequiredLength = 4;
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
     })
     .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<EquipmentBDContext>();
@@ -43,8 +43,8 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
- app.UseExceptionHandler("/Review/Error");
- app.UseHsts();
+    app.UseExceptionHandler("/Review/Error");
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();

@@ -2,7 +2,6 @@
 using Equipment_accounting.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Equipment_accounting.Controllers
 {
@@ -24,8 +23,8 @@ namespace Equipment_accounting.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-           var response = new LoginViewModel();
-           return View(response);
+            var response = new LoginViewModel();
+            return View(response);
         }
 
         [HttpGet]
@@ -74,23 +73,23 @@ namespace Equipment_accounting.Controllers
                 TempData["Error"] = "Что-то пошло не так";
                 return View(loginViewModel);
             }
-   if (user.UserName.Contains("tech"))
-   {
-    return RedirectToAction("Index", "Management");
-   }
-   else if (user.UserName.Contains("admin"))
-   {
-    return RedirectToAction("Index", "Review");
-   }
-   else if (user.UserName.Contains("teacher"))
-   {
-    return RedirectToAction("Index", "Review");
-   }
-   else
-   {
-    return RedirectToAction("Index", "Review");
-   }
-  }
+            if (user.UserName.Contains("tech"))
+            {
+                return RedirectToAction("Index", "Management");
+            }
+            else if (user.UserName.Contains("admin"))
+            {
+                return RedirectToAction("Index", "Review");
+            }
+            else if (user.UserName.Contains("teacher"))
+            {
+                return RedirectToAction("Index", "Review");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Review");
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> Logout()

@@ -4,7 +4,7 @@ namespace Equipment_accounting.Models
 {
     public class User : IdentityUser
     {
-     public string Name { set; get; }
-     public string Surname { set; get; }
+        public string Name { set; get; }
+        public string Surname { set; get; }
     }
 }
