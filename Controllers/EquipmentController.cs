@@ -23,14 +23,18 @@ public class EquipmentController : Controller
         var equipment = _context.Equipment.Where(e => e.Id == equipmentId).Include(e => e.Category).Include(e => e.Auditory).First();
         ViewBag.Categories = new SelectList(_context.Categoryequipments.ToList(), "Id", "Name");
         ViewBag.Auditory = new SelectList(_context.Audiences.ToList(), "Id", "Name");
+
+        var receiptDate = equipment.Receiptdate.ToDateTime(TimeOnly.Parse("10:00 PM"));
+        var dateAddedOrMoved = equipment.Dateaddedormoved.ToDateTime(TimeOnly.Parse("10:00 PM"));
+
         return View(new EditEquipmentViewModel()
         {
             Id = equipment.Id,
             Name = equipment.Name,
             AuditoryId = equipment.AuditoryId,
             CategoryId = equipment.CategoryId,
-            Receiptdate = equipment.Receiptdate,
-            Dateaddedormoved = equipment.Dateaddedormoved,
+            Receiptdate = receiptDate,
+            Dateaddedormoved = dateAddedOrMoved,
         });
     }
 
@@ -38,8 +42,8 @@ public class EquipmentController : Controller
     public async Task<IActionResult> Edit(EditEquipmentViewModel equipment)
     {
 
-        var receiptDate = equipment.Receiptdate;
-        var dateAddedOrMoved = equipment.Dateaddedormoved;
+        var receiptDate = DateOnly.FromDateTime((DateTime)equipment.Receiptdate);
+        var dateAddedOrMoved = DateOnly.FromDateTime((DateTime)equipment.Dateaddedormoved);
 
         var updatedEquipment = new Equipment()
         {
