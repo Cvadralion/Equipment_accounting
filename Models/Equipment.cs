@@ -10,7 +10,7 @@ namespace Equipment_accounting.Models
         public string Name { get; set; } = null!;
         public DateOnly Receiptdate { get; set; }
         public DateOnly Dateaddedormoved { get; set; }
-        public byte[]? Photo { get; set; }
+        public string? Photo { get; set; }
         public byte[]? Qrcode { get; set; }
         [ForeignKey("Documentsequipment")]
         public int? DocumentId { get; set; }

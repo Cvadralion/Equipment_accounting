@@ -28,7 +28,7 @@ namespace Equipment_accounting.Controllers
         [HttpGet]
         public IActionResult GetEquipmentByAuditory(int auditoryId)
         {
-            var equipments = _context.Equipment.Where(e => e.AuditoryId == auditoryId).Include(e => e.Category).ToList();
+            var equipments = _context.Equipment.Where(e => e.AuditoryId == auditoryId).Include(e => e.Category).Include(e => e.Document).ToList();
             return Json(equipments);
         }
 

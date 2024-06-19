@@ -8,6 +8,7 @@ public partial class EditEquipmentViewModel
     public DateTime? Dateaddedormoved { get; set; }
     public int? AuditoryId { get; set; }
     public int? CategoryId { get; set; }
-
     public int? DocumentId { get; set; }
+    public IFormFile? Document { get; set; }
+    public IFormFile? Image { get; set; }
 }

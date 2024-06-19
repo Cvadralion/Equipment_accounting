@@ -55,6 +55,28 @@ public class EquipmentController : Controller
             Dateaddedormoved = (DateOnly)dateAddedOrMoved,
         };
 
+        if (equipment.Image != null)
+        {
+            updatedEquipment.Photo = equipment.Image.FileName; // Assuming you have an Image property in Equipment model
+        }
+
+        if (equipment.Document != null)
+        {
+            using (var ms = new MemoryStream())
+            {
+                await equipment.Document.CopyToAsync(ms);
+                var document = new Documentsequipment
+                {
+                    Id = _context.Documentsequipments.OrderBy(d => d.Id).Last().Id + 1,
+                    Name = equipment.Document.FileName,
+                    Scan = ms.ToArray()
+                };
+                _context.Documentsequipments.Add(document);
+                await _context.SaveChangesAsync();
+                updatedEquipment.DocumentId = document.Id;
+            }
+        }
+
         _context.Update(updatedEquipment);
         await _context.SaveChangesAsync();
         return RedirectToAction("Index", "Management");

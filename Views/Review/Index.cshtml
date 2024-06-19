@@ -30,7 +30,7 @@
  $(document).ready(function () {
   $('.check-item').click(function () {
    let auditoryId = $(this).data('id');
-   $.get('/Review/GetEquipmentByAuditory', { auditoryId: auditoryId }, function (data) {
+   $.get('/Management/GetEquipmentByAuditory', { auditoryId: auditoryId }, function (data) {
     let fieldsHtml = '';
     let equipments = data.$values;
     if (equipments.length > 0) {
@@ -53,7 +53,7 @@
                  </div>
                  <div class="item">
                        <p><b>Документ:</p></b>
-                     <p>Document.pdg</p>
+                     <p>${equipment?.document?.name || "Document.pdf"}</p>
                  </div>
              </div>
              <div class="column">
@@ -67,7 +67,7 @@
                  </div>
              </div>
           <div class="image">
-                <img src="Equipment_images/NoPhoto.png">
+                <img src="Equipment_images/${equipment.photo || "NoPhoto.png"}">
           </div>
          </div>
      </div>`;

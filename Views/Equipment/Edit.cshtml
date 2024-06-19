@@ -164,7 +164,7 @@
     </div>
     <div class="form-group" id="documentContainer">
       <p><b>Документ:</b></p>
-      <input asp-for="DocumentId" />
+      <input type="file" asp-for="Document" class="form-control" />
     </div>
     <div class="form-group">
       <p><b>Дата поступления:</b></p>
@@ -186,9 +186,9 @@
       <button type="button" class="btn btn-primary" id="viewQRCode">Посмотреть</button>
     </div>
     <div class="form-group">
-      <input id="imageUpload" type="file" accept=".png, .jpg, .jpeg" style="display:none" />
-      <img id="imagePreview" src="default_image.jpg" alt="Image Preview"
-        onclick="document.getElementById('imageUpload').click();" />
+      <p><b>Фотография:</b></p>
+      <input id="imageUpload" type="file" asp-for="Image" accept=".png, .jpg, .jpeg" class="form-control" />
+      <img id="imagePreview" src="default_image.jpg" alt="Image Preview" />
     </div>
     <div class="form-group" id="actionButtons">
       <input type="submit" value="Сохранить" class="btn btn-primary" />
