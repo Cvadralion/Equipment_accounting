@@ -5,12 +5,36 @@
     box-sizing: border-box;
 }
 
+/* Стили для кнопки "Выход" */
+
+.exitButton {
+    font-family: Arial, sans-serif;
+    background-color: darkgreen;
+    color: #f44336;
+    border: none;
+    margin-left: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Плавный переход */
+}
+
+    .exitButton:hover {
+        color: #ff7961; /* Осветление фона при наведении */
+    }
+
+    .exitButton:active {
+        color: #d32f2f; /* Затемнение фона при нажатии */
+    }
+
 body {
     background-color: antiquewhite; /* Цвет фона для всей страницы */
     font-family: Arial, sans-serif; /* Настраиваем шрифт для всего документа */
-    display: flex;                  
-    flex-direction: column;         
-    align-items: center;            
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 header {
@@ -49,12 +73,13 @@ footer {
     justify-content: flex-end; /* Выровнять элементы списка по правой стороне */
 }
 
-.nav-links a {
-    color: white; /* Белый цвет текста */
-    text-decoration: none; /* Убираем подчеркивание ссылок */
-    font-size: 20px; /* Увеличенный размер шрифта */
-    margin-left: 30px; /* Отступы между элементами списка */
-}
+    .nav-links a {
+        cursor: pointer;
+        color: white; /* Белый цвет текста */
+        text-decoration: none; /* Убираем подчеркивание ссылок */
+        font-size: 20px; /* Увеличенный размер шрифта */
+        margin-left: 30px; /* Отступы между элементами списка */
+    }
 
 .nav-links a:hover {
     color: gray; /* Серый цвет текста при наведении */
@@ -140,13 +165,22 @@ main {
     padding: 0;
 }
 
-.room-list li {
+.check-item {
+    cursor: pointer;
+    border: none;
+    text-align: left;
+    width: 100%;
     background-color: #fff; /* Белый фон для элементов списка */
     margin-bottom: 10px; /* Отступ между элементами списка */
     padding: 10px; /* Внутренние отступы для элементов списка */
     border-radius: 5px; /* Скругление углов */
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Тень для элементов списка */
 }
+
+    .check-item:hover {
+        background-color: rgb(182, 182, 182);
+        color: white;
+    }
 
 .list {
     display: flex;
@@ -163,6 +197,7 @@ main {
 
 .item {
     margin-bottom: 20px;
+    text-align: left;
 }
 
     .item h2 {
@@ -171,6 +206,7 @@ main {
 
     .item p {
         margin: 0;
+        font-size: 16px;
     }
 
 .image {
@@ -184,21 +220,35 @@ main {
         display: block;
     }
 
-.room-list li:hover {
-    transform: scale(1.1);
-}
-
 .equipment-container {
     width: 100%;
     background-color: #fff; /* Белый фон для элементов списка */
     margin-bottom: 10px; /* Отступ между элементами списка */
     padding: 10px; /* Внутренние отступы для элементов списка */
     border-radius: 5px; /* Скругление углов */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень для элементов списка */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Тень для элементов списка */
 }
 
 /* Стили для вкладки "Управление" */
 
+.equipment-container-button {
+    border: none;
+    width: 100%;
+    background-color: #fff; /* Белый фон для элементов списка */
+    margin-bottom: 10px; /* Отступ между элементами списка */
+    padding: 10px; /* Внутренние отступы для элементов списка */
+    border-radius: 5px; /* Скругление углов */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Тень для элементов списка */
+}
+
+.equipment-container-button .list:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.equipment-container-button:active .list {
+    background-color: #e0e0e0;
+}
 
 
 /* Стили для вкладки "Поиск" */
@@ -206,7 +256,6 @@ main {
 .search-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-top: 20px;
     width: 100%;
 }

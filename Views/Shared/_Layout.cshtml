@@ -1,23 +1,61 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+ 
+    }
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EquAcc</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script>
+  $(document).ready(function () {
+   $.get('/Authorization/GetUserName', function (data) {
+    if (data != null) {
+     $('#userName').html(data);
+    } else { $('#userName').html('Пользователь'); }
+   });
+  });
+ </script>
 </head>
 <body>
  <header>
   <div class="container">
    <div class="site-title">
-    <h1>EquAcc</h1>
+    <h1>Учет оборудования</h1>
    </div>
    <nav>
     <ul class="nav-links">
-     <li><a class="dropdown-item" asp-area="" asp-controller="Review" asp-action="Index">Обзор</a></li>
-     <li><a class="dropdown-item" asp-area="" asp-controller="Management" asp-action="Index">Управление</a></li>
-     <li><a class="dropdown-item" asp-area="" asp-controller="Search" asp-action="Index">Поиск</a></li>
-     <li><a>Пользователь</a></li>
+     @{
+      if (User.IsInRole("Technician"))
+      {
+       <li><a class="dropdown-item" asp-area="" id="review" asp-controller="Review" asp-action="Index" style="display:none">Пользователи</a></li>
+       <li><a class="dropdown-item" asp-area="" id="review" asp-controller="Review" asp-action="Index" style="display:none">Обзор</a></li>
+       <li><a class="dropdown-item" asp-area="" asp-controller="Management" asp-action="Index">Управление</a></li>
+       <li><a class="dropdown-item" asp-area="" asp-controller="Search" asp-action="Index">Поиск</a></li>
+      }
+      if (User.IsInRole("Teacher"))
+      {
+       <li><a class="dropdown-item" asp-area="" id="review" asp-controller="Review" asp-action="Index" style="display:none">Пользователи</a></li>
+       <li><a class="dropdown-item" asp-area="" id="review" asp-controller="Review" asp-action="Index">Обзор</a></li>
+       <li><a class="dropdown-item" asp-area="" asp-controller="Management" asp-action="Index" style="display:none">Управление</a></li>
+       <li><a class="dropdown-item" asp-area="" asp-controller="Search" asp-action="Index">Поиск</a></li>
+      }
+      if (User.IsInRole("Admin"))
+      {
+       <li><a class="dropdown-item" asp-area="" id="review" asp-controller="Review" asp-action="Index">Пользователи</a></li>
+       <li><a class="dropdown-item" asp-area="" id="review" asp-controller="Review" asp-action="Index">Обзор</a></li>
+       <li><a class="dropdown-item" asp-area="" asp-controller="Management" asp-action="Index">Управление</a></li>
+       <li><a class="dropdown-item" asp-area="" asp-controller="Search" asp-action="Index">Поиск</a></li>
+      }
+     }
+     <li>
+       <a class="user-button" id="userName"></a>
+      <span id="logoutButtonContainer"></span>
+     </li>
     </ul>
    </nav>
   </div>
@@ -33,3 +71,67 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+  var userNameElement = document.getElementById('userName');
+  var logoutButtonContainer = document.getElementById('logoutButtonContainer');
+  var logoutButton = null; // Переменная для хранения кнопки "Выход"
+
+  // Показать кнопку "Выход"
+  function showLogoutButton() {
+   if (!logoutButton) {
+    logoutButton = document.createElement('button');
+    logoutButton.textContent = 'Выход';
+    logoutButton.className = 'exitButton';
+    logoutButtonContainer.appendChild(logoutButton);
+   }
+  }
+
+  // Скрыть кнопку "Выход"
+  function hideLogoutButton() {
+   if (logoutButton) {
+    logoutButtonContainer.removeChild(logoutButton);
+    logoutButton = null;
+   }
+  }
+
+  // Обработчик клика на userName
+  userNameElement.addEventListener('click', function (event) {
+   event.stopPropagation(); // Предотвратить всплытие события
+   showLogoutButton();
+  });
+
+  // Обработчик клика на любую область документа
+  document.addEventListener('click', function () {
+   hideLogoutButton();
+  });
+
+  // Обработчик клика на кнопку "Выход"
+  logoutButtonContainer.addEventListener('click', function (event) {
+   event.stopPropagation(); // Предотвратить всплытие события
+   // Отправка POST-запроса для выхода пользователя
+   fetch('/Authorization/Logout', {
+    method: 'POST',
+    headers: {
+     'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({}),
+   })
+    .then(response => {
+     if (response.ok) {
+      console.log('Выход выполнен');
+      // Дополнительные действия после успешного выхода, если нужно
+      // Например, перенаправление на другую страницу
+      window.location.href = '/Authorization/Index';
+     } else {
+      console.error('Ошибка при выполнении выхода');
+      // Обработка ошибки, если требуется
+     }
+    })
+    .catch(error => {
+     console.error('Ошибка при выполнении выхода:', error);
+    });
+  });
+ });
+</script>

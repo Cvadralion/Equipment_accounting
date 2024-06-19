@@ -12,7 +12,7 @@
    <ul>
     @foreach (var audience in Model)
     {
-     <li><button class="dropdown-item" data-id="@audience.Id">Аудитория @audience.Number</button></li>
+     <li><button class="check-item" data-id="@audience.Id">@audience.Name</button></li>
     }
    </ul>
   </div>
@@ -28,13 +28,18 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <script>
  $(document).ready(function () {
-  $('.dropdown-item').click(function () {
+  $('.check-item').click(function () {
    let auditoryId = $(this).data('id');
    $.get('/Review/GetEquipmentByAuditory', { auditoryId: auditoryId }, function (data) {
     let fieldsHtml = '';
     let equipments = data.$values;
     if (equipments.length > 0) {
      for (let equipment of equipments) {
+      if (equipment.category.$ref) 
+      {
+       equipment.category.name = equipments.find((e) =>
+        e.category.$id === equipment.category.$ref).category.name;
+      }
       fieldsHtml += `<div class="equipment-container">
          <div class="list">
              <div class="column">
@@ -62,7 +67,7 @@
                  </div>
              </div>
           <div class="image">
-               <img src="Equipment_images/5-1080.58258063.jpg">
+                <img src="Equipment_images/NoPhoto.png">
           </div>
          </div>
      </div>`;

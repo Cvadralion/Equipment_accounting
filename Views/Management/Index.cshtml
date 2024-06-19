@@ -3,14 +3,14 @@
 }
 
 <div class="overview">
- <h1 class="centered-title">Обзор оборудования</h1>
+ <h1 class="centered-title">Управление оборудованием</h1>
  <div class="content-form">
   <div class="room-list">
    <h2>Номера аудиторий</h2>
    <ul>
     @foreach (var audience in Model)
     {
-     <li><button class="dropdown-item" data-id="@audience.Id">Аудитория @audience.Number</button></li>
+     <li><button class="check-item" data-id="@audience.Id">@audience.Name</button></li>
     }
    </ul>
   </div>
@@ -22,3 +22,57 @@
   </div>
  </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+ $(document).ready(function () {
+  $('.check-item').click(function () {
+   let auditoryId = $(this).data('id');
+   $.get('/Review/GetEquipmentByAuditory', { auditoryId: auditoryId }, function (data) {
+    let fieldsHtml = '';
+    let equipments = data.$values;
+    if (equipments.length > 0) {
+     for (let equipment of equipments) {
+      fieldsHtml += `<button class="equipment-container-button" onclick="location.href='/Equipment/Edit?equipmentId=${equipment.id}'">
+        <a asp-controller="Equipment" asp-action="Edit" asp-route-id="${equipment.id}" style="text-decoration: none; cursor: pointer">
+          <div class="list">
+              <div class="column">
+                  <div class="item">
+                      <p><b>Название:</b></p>
+                       <p>${equipment.name}</p>
+                  </div>
+                  <div class="item">
+                        <p><b>Категория:</p></b>
+                       <p>${equipment?.category?.name}</p>
+                  </div>
+                  <div class="item">
+                        <p><b>Документ:</p></b>
+                      <p>Document.pdg</p>
+                  </div>
+              </div>
+              <div class="column">
+                  <div class="item">
+                        <p><b>Дата поступления:</p></b>
+                       <p> ${equipment.receiptdate}</p>
+                  </div>
+                  <div class="item">
+                        <p><b>Дата добаления/перемещения</p></b>
+                       <p>${equipment.dateaddedormoved}</p>
+                  </div>
+              </div>
+           <div class="image">
+                 <img src="Equipment_images/NoPhoto.png">
+           </div>
+          </div>
+           </a>
+      </button>`;
+     }
+    }
+    else {
+     fieldsHtml += `<li><a>Оборудование отсутствует</a></li>`;
+    }
+    $('#equipmentList').html(fieldsHtml);
+   });
+  });
+ });
+</script>

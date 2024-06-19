@@ -3,6 +3,7 @@ using System;
 using Equipment_accounting.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Equipment_accounting.Migrations
 {
     [DbContext(typeof(EquipmentBDContext))]
-    partial class EquipmentBDContextModelSnapshot : ModelSnapshot
+    [Migration("20240616083137_migr")]
+    partial class migr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,6 +106,7 @@ namespace Equipment_accounting.Migrations
                         .HasColumnType("bytea");
 
                     b.Property<byte[]>("Qrcode")
+                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<DateOnly>("Receiptdate")
@@ -327,15 +330,15 @@ namespace Equipment_accounting.Migrations
             modelBuilder.Entity("Equipment_accounting.Models.Equipment", b =>
                 {
                     b.HasOne("Equipment_accounting.Models.Audience", "Auditory")
-                        .WithMany()
+                        .WithMany("Equipment")
                         .HasForeignKey("AuditoryId");
 
                     b.HasOne("Equipment_accounting.Models.Categoryequipment", "Category")
-                        .WithMany()
+                        .WithMany("Equipment")
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("Equipment_accounting.Models.Documentsequipment", "Document")
-                        .WithMany()
+                        .WithMany("Equipment")
                         .HasForeignKey("DocumentId");
 
                     b.Navigation("Auditory");
@@ -394,6 +397,21 @@ namespace Equipment_accounting.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Equipment_accounting.Models.Audience", b =>
+                {
+                    b.Navigation("Equipment");
+                });
+
+            modelBuilder.Entity("Equipment_accounting.Models.Categoryequipment", b =>
+                {
+                    b.Navigation("Equipment");
+                });
+
+            modelBuilder.Entity("Equipment_accounting.Models.Documentsequipment", b =>
+                {
+                    b.Navigation("Equipment");
                 });
 #pragma warning restore 612, 618
         }

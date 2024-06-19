@@ -1,6 +1,8 @@
 using Equipment_accounting.Controllers;
+using Equipment_accounting.Data;
 using Equipment_accounting.DataBase;
 using Equipment_accounting.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +33,11 @@ builder.Services.AddIdentity<User, IdentityRole>(
      options.Password.RequireNonAlphanumeric = false;
     })
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<EquipmentBDContext>();
+.AddEntityFrameworkStores<EquipmentBDContext>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie();
 
 var app = builder.Build();
 
@@ -48,9 +54,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Review}/{action=Index}/{id?}");
+    pattern: "{controller=Authorization}/{action=Index}/{id?}");
 
+await Seed.SeedUsersAndRolesAsync(app);
 app.Run();

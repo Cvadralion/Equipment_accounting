@@ -1,4 +1,7 @@
-﻿@{
+﻿﻿@using Equipment_accounting.Models
+@model LoginViewModel
+
+@{
  ViewData["Title"] = "Авторизация";
 }
 <style>
@@ -16,12 +19,21 @@
 
 <div class="login-container">
  <img src="~/Logo.png" alt="Логотип">
- <h2>EquAcc</h2>
- <form action="/login" method="post">
-  <label for="username">Имя пользователя</label>
-  <input type="text" id="username" name="username" required>
-  <label for="password">Пароль</label>
-  <input type="password" id="password" name="password" required>
-  <input type="submit" value="Войти">
+ <h2>Учет оборудования</h2>
+ <form asp-action="Index" method="post">
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <div class="form-group py-1">
+   <label asp-for="Login" class="control-label"></label>
+   <input asp-for="Login" class="form-control">
+   <span asp-validation-for="Login" class="text-danger"></span>
+  </div>
+  <div class="form-group py-1">
+   <label asp-for="Password" class="control-label"></label>
+   <input asp-for="Password" class="form-control" type="password">
+   <span asp-validation-for="Password" class="text-danger"></span>
+  </div>
+  <div class="form-group py-1">
+   <input class="btn btn-outline-success float" type="submit" value="Войти" />
+  </div>
  </form>
 </div>

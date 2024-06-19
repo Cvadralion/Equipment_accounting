@@ -10,6 +10,7 @@ using Equipment_accounting.Utils;
 namespace Equipment_accounting.Controllers
 {
  [CustomAuthorizationFilter]
+
  public class ReviewController : Controller
  {
   private readonly EquipmentBDContext _context;

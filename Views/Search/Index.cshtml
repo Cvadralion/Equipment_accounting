@@ -1,11 +1,100 @@
-﻿@{
+﻿@using Equipment_accounting.Models
+@model List<Equipment>
+@{
  ViewData["Title"] = "Поиск по названию";
 }
+<style>
+ footer {
+  display: none;
+ }
 
+ .h2 {
+  text-align: left;
+  margin: 20px;
+ }
+
+ .equipment-list{
+     margin-top:20px;
+ }
+</style>
   <div class="search-container">
  <h1 class="centered-title">Поиск по названию</h1>
  <div class="search">
-   <input type="text" class="search-input" placeholder="Введите текст для поиска...">
-   <button class="search-button" onclick="performSearch()">Поиск</button>
+   <input type="text" id="userInput" class="search-input" placeholder="Введите текст для поиска...">
+  <button class="search-button">Поиск</button>
+ </div>
+ <h2>Результаты поиска</h2>
+ <div class="equipment-list">
+  <ul id="equipmentList">
+   <li>Ничего не найдено</li>
+  </ul>
  </div>
   </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+ $(document).ready(function () {
+  $('.search-button').click(function () {
+   let equipmentName = $('#userInput').val();
+   $.get('/Search/GetEquipmentByName', { equipmentName: equipmentName }, function (data) {
+    let fieldsHtml = '';
+    let equipments = data.$values;
+    if (equipments.length > 0) {
+     for (let equipment of equipments) {
+      if (equipment.category.$ref) {
+       equipment.category.name = equipments.find((e) =>
+        e.category.$id === equipment.category.$ref).category.name;
+      }
+      if (equipment.auditory.$ref) {
+       equipment.auditory.name = equipments.find((e) =>
+        e.auditory.$id === equipment.auditory.$ref).auditory.name;
+      }
+      if (equipment.auditory.$ref) {
+       equipment.auditory.number = equipments.find((e) =>
+        e.auditory.$id === equipment.auditory.$ref).auditory.number;
+      }
+      fieldsHtml += `<div class="equipment-container">
+          <div class="list">
+              <div class="column">
+                  <div class="item">
+                      <p><b>Название:</b></p>
+                       <p>${equipment.name}</p>
+                  </div>
+                  <div class="item">
+                        <p><b>Категория:</p></b>
+                       <p>${equipment?.category?.name}</p>
+                  </div>
+                  <div class="item">
+                        <p><b>Документ:</p></b>
+                      <p>Document.pdg</p>
+                  </div>
+              </div>
+              <div class="column">
+                  <div class="item">
+                        <p><b>Дата поступления:</p></b>
+                       <p> ${equipment.dateaddedormoved}</p>
+                  </div>
+                  <div class="item">
+                        <p><b>Дата добаления/перемещения</p></b>
+                       <p>${equipment.dateaddedormoved}</p>
+                  </div>
+                   <div class="item">
+                         <p><b>Место нахождения:</p></b>
+                          <p>${equipment?.auditory?.name}</p>
+                   </div>
+              </div>
+           <div class="image">
+                 <img src="Equipment_images/NoPhoto.png">
+           </div>
+          </div>
+      </div>`;
+     }
+    }
+    else {
+     fieldsHtml += `<li><a>Ничего не найдено</a></li>`;
+    }
+    $('#equipmentList').html(fieldsHtml);
+   });
+  });
+ });
+</script>
